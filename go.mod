@@ -1,6 +1,6 @@
 module github.com/star-integrations/project-boilerplate
 
-go 1.16
+go 1.15
 
 require (
 	github.com/54m/echo-routing v0.0.0-20210527071951-a9072246b2ca
