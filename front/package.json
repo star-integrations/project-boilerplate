@@ -1,0 +1,79 @@
+{
+  "name": "project-boilerplate",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
+    "lint": "npm run lint:js && npm run lint:style",
+    "lint:fix": "eslint --ext .js,.ts,.vue --fix .",
+    "test": "jest",
+    "storybook": "nuxt storybook --ci",
+    "storybook:build": "nuxt storybook build"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@nuxtjs/composition-api": "^0.24.4",
+    "@nuxtjs/dayjs": "^1.3.1",
+    "@nuxtjs/vuetify": "^1.11.3",
+    "chart.js": "^2.9.4",
+    "core-js": "^3.14.0",
+    "fs-extra": "^8.1.0",
+    "nuxt": "^2.15.7",
+    "vee-validate": "^3.4.9",
+    "vue-chartjs": "^3.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/runtime-corejs3": "^7.14.5",
+    "@nuxt/types": "^2.15.6",
+    "@nuxt/typescript-build": "^2.0.4",
+    "@nuxtjs/eslint-config-typescript": "^5.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/storybook": "^4.0.4",
+    "@nuxtjs/stylelint-module": "^4.0.0",
+    "@storybook/addon-essentials": "^6.2.8",
+    "@storybook/addon-links": "^6.2.8",
+    "@types/jest": "^26.0.23",
+    "@vue/test-utils": "^1.1.2",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "css-loader": "^5.2.6",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.11.0",
+    "fibers": "^5.0.0",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.3",
+    "postcss": "^8.3.2",
+    "postcss-import": "^13.0.0",
+    "postcss-loader": "^4.3.0",
+    "postcss-url": "^10.1.3",
+    "prettier": "^2.3.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.19.0",
+    "ts-jest": "^26.4.4",
+    "ts-loader": "^6.2.2",
+    "ts-node": "^10.0.0",
+    "vue-jest": "^3.0.4"
+  }
+}
