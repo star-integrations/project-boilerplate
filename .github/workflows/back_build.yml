@@ -1,0 +1,34 @@
+name: build
+
+on:
+  pull_request:
+    paths:
+      - back/**
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - back/**
+
+jobs:
+  backend:
+    name: runner / backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: build
+        run: go get ./back/cmd/

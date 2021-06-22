@@ -1,0 +1,42 @@
+name: linter
+
+on:
+  pull_request:
+    paths:
+      - back/**
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - back/**
+
+jobs:
+  api_gen:
+    name: runner / gen_linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{github.head_ref}}
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+
+      - name: Set up tools
+        run: make build_tools
+
+      - name: Set up api_gen
+        run: make bootstrap_api_gen
+
+      - name: api_gen Check
+        run: sh scripts/api_gen-checker.sh
+        env:
+          TZ: Asia/Tokyo
+
+      - name: Set up swag
+        run: make bootstrap_swag
+
+      - name: Swagger Check
+        run: sh scripts/swagger-size-checker.sh

@@ -1,0 +1,25 @@
+name: linter
+
+on:
+  pull_request:
+    paths:
+      - front/**
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - front/**
+
+jobs:
+  es-lint:
+    name: runner / eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: eslint
+        uses: reviewdog/action-eslint@v1
+        with:
+          workdir: './front/'
+          reporter: github-pr-review
+          eslint_flags: '--ext .js,.ts,.vue .'

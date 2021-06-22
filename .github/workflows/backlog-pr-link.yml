@@ -1,0 +1,15 @@
+name: 'Link PR to Backlog'
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, closed]
+
+jobs:
+  backlog-pr-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: star-integrations/backlog-pr-link-action@main
+        with:
+          backlog-api-key: "${{ secrets.BACKLOG_API_KEY }}"
+          backlog-host: "${{ secrets.BACKLOG_HOST }}"
+          secret: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,39 @@
+name: build
+
+on:
+  pull_request:
+    paths:
+      - front/**
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - front/**
+
+jobs:
+  frontend:
+    name: runner / frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+          check-latest: true
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Check out code into the frontend directory
+        uses: actions/checkout@v2
+      - working-directory: front
+        run: |
+          npm ci
+          npm run generate
