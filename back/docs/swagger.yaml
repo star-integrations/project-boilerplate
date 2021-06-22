@@ -1,0 +1,27 @@
+basePath: /
+definitions:
+  interfaces.GetHealthCheckResponse:
+    properties:
+      status:
+        description: status code
+        type: integer
+    type: object
+host: localhost:1234
+info:
+  contact: {}
+  description: Backend Server
+  title: ProjectAPI
+  version: 0.0.1
+paths:
+  /health_check:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/interfaces.GetHealthCheckResponse'
+swagger: "2.0"

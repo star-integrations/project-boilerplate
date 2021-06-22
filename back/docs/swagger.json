@@ -1,0 +1,42 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Backend Server",
+        "title": "ProjectAPI",
+        "contact": {},
+        "version": "0.0.1"
+    },
+    "host": "localhost:1234",
+    "basePath": "/",
+    "paths": {
+        "/health_check": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/interfaces.GetHealthCheckResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "interfaces.GetHealthCheckResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "status code",
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
