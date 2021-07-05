@@ -32,7 +32,7 @@ client_generate:
 	cd ./front/lib/api && ../../../bin/api_gen client ts ../../../back/interfaces
 
 .PHONY: generate
-generate: server_generate client_generate go_generate
+generate: server_generate client_generate go_generate swag
 
 .PHONY: bootstrap_firestore_repo
 bootstrap_firestore_repo:
