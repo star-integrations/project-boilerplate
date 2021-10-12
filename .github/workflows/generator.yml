@@ -1,0 +1,63 @@
+name: generator
+
+on:
+  pull_request:
+    paths:
+      - back/**
+
+jobs:
+  api_gen:
+    if: ${{ !contains(github.ref, 'refs/heads/automated') }}
+    name: runner / api_gen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{github.head_ref}}
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16'
+
+      - name: Setup
+        run: |
+          default=$(git remote show origin | grep 'HEAD branch' | awk '{print $NF}')
+          git fetch origin $default:refs/remotes/origin/$default
+          make bootstrap_api_gen build_tools
+
+      - name: api_gen Check
+        run: |
+          make server_generate client_generate
+          clean=$(git status | grep "nothing to commit" || true)
+          if [ -n "$clean" ]; then
+            echo "no diff"
+            exit 0
+          fi
+        env:
+          TZ: Asia/Tokyo
+
+      - name: Imitate latest commit
+        run: |
+          git config --local user.email "$(git log --format='%ae' HEAD^!)"
+          git config --local user.name "$(git log --format='%an' HEAD^!)"
+
+      - name: Commit
+        run: |
+          clean=$(git status | grep "back/server" || true)
+          if [ -n "$clean" ]; then
+            git add back/server/
+            git commit -m "update(back): generated code #auto"
+          fi
+
+          clean=$(git status | grep "front/lib/api" || true)
+          if [ -n "$clean" ]; then
+            git add front/lib/api/
+            git commit -m "update(front): generated code #auto"
+          fi
+
+          local=$(git rev-parse HEAD)
+          default=$(git remote show origin | grep 'HEAD branch' | awk '{print $NF}')
+          remote=$(git rev-parse origin/$default)
+          if [ $local != $remote ]; then
+            git push origin $(git rev-parse --abbrev-ref HEAD)
+          fi

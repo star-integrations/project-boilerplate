@@ -24,16 +24,8 @@ jobs:
         with:
           go-version: '^1.16'
 
-      - name: Set up api_gen
-        run: make bootstrap_api_gen
+      - name: Set up bootstrap
+        run: make bootstrap_firestore_repo bootstrap_mockgen
 
-      - name: api_gen Check
-        run: sh scripts/api_gen-checker.sh
-        env:
-          TZ: Asia/Tokyo
-
-      - name: Set up swag
-        run: make bootstrap_swag
-
-      - name: Swagger Check
-        run: sh scripts/swagger-size-checker.sh
+      - name: GoGenerate Check
+        run: sh scripts/go-generate-checker.sh
