@@ -23,7 +23,7 @@ jobs:
         run: |
           default=$(git remote show origin | grep 'HEAD branch' | awk '{print $NF}')
           git fetch origin $default:refs/remotes/origin/$default
-          make bootstrap_api_gen build_tools
+          make bootstrap_api_gen
 
       - name: api_gen Check
         run: |
