@@ -14,6 +14,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	_ "github.com/star-integrations/project-boilerplate/back/docs"
 	"github.com/star-integrations/project-boilerplate/back/pkg/config"
+	"github.com/star-integrations/project-boilerplate/back/pkg/tests"
 	"github.com/star-integrations/project-boilerplate/back/server"
 	"github.com/star-integrations/project-boilerplate/back/server/props"
 	echoSwagger "github.com/swaggo/echo-swagger"
@@ -38,6 +39,7 @@ var (
 )
 
 func main() {
+	tests.IsTest = false
 	ctx := context.Background()
 	e := echo.New()
 
