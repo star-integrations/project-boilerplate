@@ -10,6 +10,9 @@ import (
 // Config - config base for reading from outside
 type Config struct {
 	CORSAllowOrigins []string `config:"CORS_ALLOW_ORIGINS"` // CORS Allow Origins
+	SlackUserName    string   `config:"SLACK_USER_NAME"`    // Slack User Name
+	SlackIconEmoji   string   `config:"SLACK_ICON_EMOJI"`   // Slack Icon Emoji
+	SlackWebhookURL  string   `config:"SLACK_WEBHOOK_URL"`  // Slack webhook URL
 	// TODO: add environment variable
 }
 
